@@ -50,6 +50,8 @@ class HTViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let accountStore = ACAccountStore()
         self.maxId = nil
         self.json = []
+        self.searchTag = self.textField.text
+        
         let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         
         accountStore.requestAccessToAccountsWithType(accountType) {
@@ -57,13 +59,9 @@ class HTViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
             var twitterManager: TwitterManager
             if granted {
                 let twitterAccounts = accountStore.accountsWithAccountType(accountType)
-                
-                
+
                 let twitterAccount = twitterAccounts[0] as ACAccount
-                
                 self.twitterManager = TwitterManager(account: twitterAccount)
-                
-                self.searchTag = self.textField.text
                 
                 self.showTweets(self.twitterManager)
                 
